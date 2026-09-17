@@ -1,31 +1,22 @@
-"use client";
-
-import { HtmlLangSync } from "@/components/zainara/use-t";
-import { Header } from "@/components/zainara/header";
 import { Hero } from "@/components/zainara/hero";
+import { FeaturedServices } from "@/components/zainara/featured-services";
 import { About } from "@/components/zainara/about";
-import { Services } from "@/components/zainara/services";
-import { Gallery } from "@/components/zainara/gallery";
-import { Location } from "@/components/zainara/location";
-import { Booking } from "@/components/zainara/booking";
-import { FAQ } from "@/components/zainara/faq";
-import { Footer } from "@/components/zainara/footer";
+import { CTABand } from "@/components/zainara/cta-band";
 
-export default function Home() {
+export const metadata = {
+  title: "Zainara Cosmetics | Laser, Facials & Permanent Make-up in Roßdorf",
+  description:
+    "Premium Kosmetikstudio in Roßdorf bei Darmstadt. Laser-Haarentfernung, AquaFacial, Microneedling, Permanent Make-up & Green Peel. Jetzt online Termin buchen.",
+  alternates: { canonical: "/" },
+};
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <HtmlLangSync />
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <About />
-        <Services />
-        <Gallery />
-        <Location />
-        <Booking />
-        <FAQ />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <FeaturedServices />
+      <About />
+      <CTABand />
+    </>
   );
 }

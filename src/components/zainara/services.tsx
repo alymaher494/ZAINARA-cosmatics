@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import {
   Sparkles,
   Droplet,
@@ -9,8 +10,7 @@ import {
   Leaf,
   ChevronRight,
 } from "lucide-react";
-import { useT } from "./use-t";
-import { services } from "@/lib/content";
+import { t, services } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -23,17 +23,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export function Services() {
-  const { t, lang } = useT();
   const s = t.services;
   const [active, setActive] = useState(0);
   const cat = services[active];
   const Icon = iconMap[cat.icon] ?? Sparkles;
 
-  const goBooking = (item: string) => {
-    const el = document.getElementById("booking");
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    // prefill via custom event
-    window.dispatchEvent(new CustomEvent("zainara:prefill", { detail: item }));
+  const goBooking = () => {
+    // navigate to booking page; the booking component reads the hash
+    window.location.href = `/buchung?service=${encodeURIComponent(cat.title)}`;
   };
 
   return (
@@ -73,7 +70,7 @@ export function Services() {
                 aria-pressed={active === i}
               >
                 <CIcon className="h-4 w-4" />
-                <span>{c.title[lang]}</span>
+                <span>{c.title}</span>
               </button>
             );
           })}
@@ -84,10 +81,10 @@ export function Services() {
           {/* Image + info */}
           <div className="relative">
             <div className="absolute -inset-2 -z-10 rounded-[2rem] border border-gold/25" />
-            <div className="overflow-hidden rounded-[2rem] border border-gold/30 shadow-xl shadow-charcoal/10">
+            <div className="relative overflow-hidden rounded-[2rem] border border-gold/30 shadow-xl shadow-charcoal/10">
               <img
                 src={cat.image}
-                alt={`${cat.title[lang]} – Zainara Cosmetics`}
+                alt={`${cat.title} – Zainara Cosmetics`}
                 width={1024}
                 height={1024}
                 className="aspect-square h-full w-full object-cover"
@@ -98,10 +95,10 @@ export function Services() {
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <div className="inline-flex items-center gap-2 rounded-full bg-cream/90 px-3 py-1.5 text-xs font-semibold text-gold-dark backdrop-blur">
                   <Icon className="h-3.5 w-3.5" />
-                  {c_titleShort(cat.title[lang])}
+                  {shortTitle(cat.title)}
                 </div>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/95">
-                  {cat.desc[lang]}
+                  {cat.desc}
                 </p>
               </div>
             </div>
@@ -111,10 +108,10 @@ export function Services() {
           <div className="flex flex-col">
             <div className="flex items-baseline justify-between">
               <h3 className="font-serif text-2xl font-bold text-charcoal sm:text-3xl">
-                {cat.title[lang]}
+                {cat.title}
               </h3>
               <span className="text-xs font-medium uppercase tracking-wider text-gold">
-                {cat.items.length} {lang === "ar" ? "خدمة" : "Behandlungen"}
+                {cat.items.length} Behandlungen
               </span>
             </div>
             <div className="divider-gold mt-3" />
@@ -128,12 +125,12 @@ export function Services() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-baseline gap-2">
                       <span className="text-sm font-medium text-charcoal">
-                        {item.name[lang]}
+                        {item.name}
                       </span>
                     </div>
                     {item.note && (
                       <div className="mt-0.5 text-[11px] font-medium text-gold-dark/80">
-                        {item.note[lang]}
+                        {item.note}
                       </div>
                     )}
                   </div>
@@ -141,24 +138,22 @@ export function Services() {
                     <span className="font-serif text-base font-bold text-gold-dark">
                       {item.price}
                     </span>
-                    <button
-                      onClick={() => goBooking(`${cat.title[lang]} — ${item.name[lang]}`)}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gold/40 text-gold opacity-0 transition hover:bg-gold hover:text-cream group-hover:opacity-100 rtl:rotate-180"
-                      aria-label={s.book}
-                      title={s.book}
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                    </button>
                   </div>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-5 rounded-2xl border border-gold/20 bg-cream/60 p-4 text-center">
+            <button
+              onClick={goBooking}
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-cream shadow-md shadow-gold/20 transition hover:shadow-lg hover:shadow-gold/30"
+            >
+              {s.book}
+              <ChevronRight className="h-4 w-4" />
+            </button>
+
+            <div className="mt-4 rounded-2xl border border-gold/20 bg-cream/60 p-4 text-center">
               <p className="text-xs text-charcoal/60">
-                {lang === "ar"
-                  ? "الأسعار شاملة ضريبة القيمة المضافة. الاستشارة الأولية مجانية."
-                  : "Preise inkl. MwSt. Erste Beratung kostenlos."}
+                Preise inkl. MwSt. Erste Beratung kostenlos.
               </p>
             </div>
           </div>
@@ -168,6 +163,6 @@ export function Services() {
   );
 }
 
-function c_titleShort(s: string) {
+function shortTitle(s: string) {
   return s.length > 28 ? s.slice(0, 28) + "…" : s;
 }

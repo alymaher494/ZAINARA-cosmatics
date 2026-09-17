@@ -1,9 +1,7 @@
-"use client";
-import { useT } from "./use-t";
+import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 export function Gallery() {
-  const { t, lang } = useT();
   const g = t.gallery;
 
   const imgs = ["/images/gallery-1.jpg", "/images/gallery-2.jpg", "/images/gallery-3.jpg"];
@@ -46,7 +44,7 @@ export function Gallery() {
                 <p className="mt-1 text-sm text-cream/85">{item.desc}</p>
               </figcaption>
               <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold-dark">
-                {lang === "ar" ? "نتيجة" : "Resultat"}
+                Resultat
               </span>
             </figure>
           ))}

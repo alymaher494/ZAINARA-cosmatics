@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { useT } from "./use-t";
+import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 export function FAQ() {
-  const { t, lang } = useT();
   const f = t.faq;
   const [open, setOpen] = useState<number | null>(0);
 
@@ -38,7 +37,7 @@ export function FAQ() {
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left rtl:text-right"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                   aria-expanded={isOpen}
                 >
                   <span className="flex items-start gap-3">
@@ -49,7 +48,13 @@ export function FAQ() {
                       {item.q}
                     </span>
                   </span>
-                  <ChevronRightIcon open={isOpen} />
+                  <span
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition ${
+                      isOpen ? "rotate-180 bg-gold text-cream" : ""
+                    }`}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </span>
                 </button>
                 <div
                   className={`grid transition-all duration-300 ${
@@ -57,7 +62,7 @@ export function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-5 pb-5 pl-12 text-sm leading-relaxed text-charcoal/75 rtl:pr-12 rtl:pl-5">
+                    <p className="px-5 pb-5 pl-12 text-sm leading-relaxed text-charcoal/75">
                       {item.a}
                     </p>
                   </div>
@@ -68,17 +73,5 @@ export function FAQ() {
         </div>
       </div>
     </section>
-  );
-}
-
-function ChevronRightIcon({ open }: { open: boolean }) {
-  return (
-    <span
-      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition ${
-        open ? "rotate-90 bg-gold text-cream" : ""
-      } rtl:rotate-0 rtl:[.rotate-90\\]:-rotate-90`}
-    >
-      <ChevronDown className="h-4 w-4" />
-    </span>
   );
 }

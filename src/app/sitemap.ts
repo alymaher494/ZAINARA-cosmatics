@@ -4,11 +4,21 @@ const SITE_URL = "https://zainara-cosmetics.de";
 const LASTMOD = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const sections = ["", "#about", "#services", "#gallery", "#location", "#booking", "#faq"];
-  return sections.map((s) => ({
-    url: s === "" ? SITE_URL : `${SITE_URL}/${s}`,
+  const pages: { path: string; priority: number }[] = [
+    { path: "", priority: 1.0 },
+    { path: "/leistungen", priority: 0.9 },
+    { path: "/ueber-uns", priority: 0.8 },
+    { path: "/galerie", priority: 0.7 },
+    { path: "/kontakt", priority: 0.8 },
+    { path: "/buchung", priority: 0.9 },
+    { path: "/faq", priority: 0.6 },
+    { path: "/impressum", priority: 0.3 },
+    { path: "/datenschutz", priority: 0.3 },
+  ];
+  return pages.map((p) => ({
+    url: `${SITE_URL}${p.path}`,
     lastModified: LASTMOD,
     changeFrequency: "weekly",
-    priority: s === "" ? 1 : s === "#services" || s === "#booking" ? 0.9 : 0.7,
+    priority: p.priority,
   }));
 }

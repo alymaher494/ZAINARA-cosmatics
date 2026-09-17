@@ -1,15 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Calendar, Loader2, Send, MessageCircle, CheckCircle2 } from "lucide-react";
-import { useT } from "./use-t";
-import { services } from "@/lib/content";
+import { t, services } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 const WHATSAPP_NUMBER = "4915773435692";
 
 export function Booking() {
-  const { t, lang } = useT();
   const b = t.booking;
+  const searchParams = useSearchParams();
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [service, setService] = useState("");
   const [name, setName] = useState("");
@@ -19,19 +20,18 @@ export function Booking() {
   const [time, setTime] = useState("");
   const [message, setMessage] = useState("");
 
-  // Prefill service from services section
+  // Prefill service from ?service= query (used by Services page)
   useEffect(() => {
-    const handler = (e: Event) => {
-      const detail = (e as CustomEvent<string>).detail;
-      setService(detail);
-      document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
-    window.addEventListener("zainara:prefill", handler);
-    return () => window.removeEventListener("zainara:prefill", handler);
-  }, []);
+    const q = searchParams.get("service");
+    if (q) {
+      // try to match the category name to a full service option
+      const match = allServices.find((s) => s.toLowerCase().startsWith(q.toLowerCase()));
+      setService(match ?? q);
+    }
+  }, [searchParams]);
 
   const allServices = services.flatMap((c) =>
-    c.items.map((it) => `${c.title[lang]} — ${it.name[lang]} (${it.price})`)
+    c.items.map((it) => `${c.title} — ${it.name} (${it.price})`)
   );
 
   async function onSubmit(e: React.FormEvent) {
@@ -42,7 +42,7 @@ export function Booking() {
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, service, date, time, message, lang }),
+        body: JSON.stringify({ name, phone, email, service, date, time, message }),
       });
       if (!res.ok) throw new Error("request failed");
       setState("success");
@@ -108,7 +108,7 @@ export function Booking() {
                 }}
                 className="mt-6 text-sm font-semibold text-gold-dark hover:text-gold"
               >
-                {lang === "ar" ? "إرسال طلب آخر" : "Weitere Anfrage senden"}
+                {b.again}
               </button>
             </div>
           ) : (
@@ -203,7 +203,7 @@ export function Booking() {
                   {state === "loading" ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Send className="h-4 w-4 rtl:rotate-180" />
+                    <Send className="h-4 w-4" />
                   )}
                   {b.submit}
                 </button>
@@ -220,10 +220,25 @@ export function Booking() {
 
               <p className="sm:col-span-2 flex items-center justify-center gap-1.5 text-center text-xs text-charcoal/50">
                 <Calendar className="h-3 w-3" />
-                {lang === "ar"
-                  ? "سنتواصل معك خلال 24 ساعة للتأكيد."
-                  : "Wir melden uns innerhalb von 24 Stunden zur Bestätigung."}
+                Wir melden uns innerhalb von 24 Stunden zur Bestätigung.
               </p>
+
+              <div className="sm:col-span-2 mt-2 text-center text-xs text-charcoal/50">
+                Alternativ telefonisch unter{" "}
+                <Link href="tel:+4915773435692" className="font-semibold text-gold-dark hover:text-gold" dir="ltr">
+                  01577 3435692
+                </Link>{" "}
+                oder auf Instagram{" "}
+                <Link
+                  href="https://www.instagram.com/zainara-cosmetic"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-gold-dark hover:text-gold"
+                >
+                  @zainara-cosmetic
+                </Link>
+                .
+              </div>
             </form>
           )}
         </div>

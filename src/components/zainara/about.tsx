@@ -1,10 +1,9 @@
-"use client";
-import { Check } from "lucide-react";
-import { useT } from "./use-t";
+import Link from "next/link";
+import { Check, ChevronRight } from "lucide-react";
+import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 export function About() {
-  const { t, lang } = useT();
   const a = t.about;
 
   return (
@@ -20,11 +19,7 @@ export function About() {
               <div className="overflow-hidden rounded-[2rem] border border-gold/30 shadow-xl shadow-charcoal/10">
                 <img
                   src="/images/hero.jpg"
-                  alt={
-                    lang === "ar"
-                      ? "داخل صالون زينارة للتجميل الفاخر في روسدورف"
-                      : "Innenraum des Premium Kosmetikstudios Zainara Cosmetics in Roßdorf"
-                  }
+                  alt="Innenraum des Premium Kosmetikstudios Zainara Cosmetics in Roßdorf"
                   width={1344}
                   height={768}
                   className="aspect-[16/10] h-full w-full object-cover"
@@ -49,8 +44,8 @@ export function About() {
               <h2 className="mt-4 max-w-xl text-center font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-left">
                 {a.title}
               </h2>
-              <div className="mt-5 lg:mx-0">
-                <GoldDivider className="hidden lg:flex" />
+              <div className="mt-5 hidden lg:block">
+                <GoldDivider />
               </div>
             </div>
 
@@ -70,6 +65,14 @@ export function About() {
                 </li>
               ))}
             </ul>
+
+            <Link
+              href="/leistungen"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-gold-dark hover:text-gold"
+            >
+              Behandlungen entdecken
+              <ChevronRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>

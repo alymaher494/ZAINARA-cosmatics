@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, Tajawal } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { Header } from "@/components/zainara/header";
+import { Footer } from "@/components/zainara/footer";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -15,13 +17,6 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-});
-
-const tajawal = Tajawal({
-  variable: "--font-arabic",
-  subsets: ["arabic", "latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "700", "800"],
 });
 
 const SITE_URL = "https://zainara-cosmetics.de";
@@ -55,10 +50,6 @@ export const metadata: Metadata = {
   publisher: "Zainara Cosmetics",
   alternates: {
     canonical: SITE_URL,
-    languages: {
-      "de-DE": SITE_URL,
-      "ar": `${SITE_URL}/?lang=ar`,
-    },
   },
   icons: {
     icon: [
@@ -81,7 +72,6 @@ export const metadata: Metadata = {
       },
     ],
     locale: "de_DE",
-    alternateLocale: "ar_AR",
     type: "website",
   },
   twitter: {
@@ -194,7 +184,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: "Zainara Cosmetics",
-      inLanguage: ["de-DE", "ar"],
+      inLanguage: "de-DE",
       publisher: { "@id": `${SITE_URL}/#business` },
       potentialAction: {
         "@type": "SearchAction",
@@ -266,7 +256,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" dir="ltr" suppressHydrationWarning>
+    <html lang="de" dir="ltr" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -274,9 +264,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${playfair.variable} ${inter.variable} ${tajawal.variable} antialiased bg-background text-foreground`}
+        className={`${playfair.variable} ${inter.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <Toaster />
       </body>
     </html>

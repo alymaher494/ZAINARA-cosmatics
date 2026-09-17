@@ -1,6 +1,4 @@
-"use client";
 import * as React from "react";
-import { useLangStore } from "@/lib/lang-store";
 
 /** Decorative botanical branch (eucalyptus-like) in soft greens/gold. */
 export function Branch({
@@ -100,26 +98,6 @@ export function CornerOrnament({ className = "" }: { className?: string }) {
       <path d="M12 40 Q 12 12, 40 12" opacity="0.4" />
       <circle cx="40" cy="4" r="2.4" fill="#c5a059" stroke="none" />
     </svg>
-  );
-}
-
-/** Language toggle button DE / AR. */
-export function LangToggle({ compact = false }: { compact?: boolean }) {
-  const lang = useLangStore((s) => s.lang);
-  const toggle = useLangStore((s) => s.toggle);
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label="Sprache wechseln / تغيير اللغة"
-      className={`group inline-flex items-center gap-1 rounded-full border border-gold/40 bg-cream/60 px-3 py-1.5 text-xs font-semibold tracking-widest text-charcoal transition hover:border-gold hover:bg-cream ${
-        compact ? "" : "uppercase"
-      }`}
-    >
-      <span className={lang === "de" ? "text-gold" : "opacity-50"}>DE</span>
-      <span className="text-gold/40">·</span>
-      <span className={lang === "ar" ? "text-gold" : "opacity-50"}>ع</span>
-    </button>
   );
 }
 

@@ -1,14 +1,10 @@
-"use client";
-import { Calendar, Sparkles, ChevronRight, MapPin, Star } from "lucide-react";
-import { useT } from "./use-t";
-import { Branch, GoldDivider, SectionLabel } from "./decorations";
+import Link from "next/link";
+import { Calendar, Sparkles, ChevronRight, MapPin } from "lucide-react";
+import { t } from "@/lib/content";
+import { Branch, GoldDivider } from "./decorations";
 
 export function Hero() {
-  const { t, lang } = useT();
   const h = t.hero;
-
-  const go = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
     <section
@@ -44,22 +40,22 @@ export function Hero() {
             {h.subtitle}
           </p>
 
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start sm:justify-center">
-            <button
-              onClick={() => go("booking")}
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <Link
+              href="/buchung"
               className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-cream shadow-lg shadow-gold/20 transition hover:shadow-xl hover:shadow-gold/30 sm:w-auto"
             >
               <Calendar className="h-4 w-4" />
               {h.cta1}
-              <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
-            </button>
-            <button
-              onClick={() => go("services")}
+              <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href="/leistungen"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold/50 bg-cream/60 px-7 py-3.5 text-sm font-semibold text-charcoal transition hover:border-gold hover:bg-cream sm:w-auto"
             >
               <Sparkles className="h-4 w-4 text-gold" />
               {h.cta2}
-            </button>
+            </Link>
           </div>
 
           {/* Stats */}
@@ -84,14 +80,9 @@ export function Hero() {
             <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-gold-gradient opacity-20 blur-2xl" />
             <div className="absolute -inset-2 -z-10 rounded-[2rem] border border-gold/30" />
             <div className="relative overflow-hidden rounded-[2rem] border-2 border-gold/40 shadow-2xl shadow-charcoal/20">
-              {/* Use next/image via plain img fallback for simplicity in this scaffold */}
               <img
                 src="/images/founder.jpg"
-                alt={
-                  lang === "ar"
-                    ? "زينارة، مؤسِّسة صالون زينارة للتجميل في روسدورف"
-                    : "Zainara, Gründerin von Zainara Cosmetics in Roßdorf"
-                }
+                alt="Zainara, Gründerin von Zainara Cosmetics in Roßdorf"
                 width={1024}
                 height={1280}
                 className="aspect-[4/5] h-full w-full object-cover"
@@ -102,10 +93,10 @@ export function Hero() {
             </div>
 
             {/* Floating badge */}
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 lg:rtl:translate-x-0 lg:left-auto lg:right-6 rounded-full bg-cream/95 px-5 py-2.5 shadow-lg ring-1 ring-gold/30 backdrop-blur">
+            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-cream/95 px-5 py-2.5 shadow-lg ring-1 ring-gold/30 backdrop-blur">
               <div className="flex items-center gap-2 text-sm font-semibold text-charcoal">
                 <span className="text-gold">★★★★★</span>
-                <span className="hidden sm:inline">{lang === "ar" ? "تقييمات 5 نجوم" : "5-Sterne Bewertungen"}</span>
+                <span>5-Sterne Bewertungen</span>
               </div>
             </div>
 

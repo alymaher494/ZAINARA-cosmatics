@@ -1,10 +1,8 @@
-"use client";
 import { MapPin, Phone, Instagram, Clock, Navigation } from "lucide-react";
-import { useT } from "./use-t";
+import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 export function Location() {
-  const { t, lang } = useT();
   const l = t.location;
 
   const mapSrc =
@@ -39,7 +37,7 @@ export function Location() {
             <div className="absolute -inset-2 -z-10 rounded-[2rem] border border-gold/25" />
             <div className="overflow-hidden rounded-[2rem] border-2 border-gold/30 shadow-xl shadow-charcoal/10">
               <iframe
-                title={lang === "ar" ? "خريطة موقع زينارة للتجميل" : "Standort Zainara Cosmetics Roßdorf"}
+                title="Standort Zainara Cosmetics Roßdorf"
                 src={mapSrc}
                 width="100%"
                 height="100%"

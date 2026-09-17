@@ -1,15 +1,19 @@
-"use client";
-import { MapPin, Phone, Instagram, Mail } from "lucide-react";
-import { useT } from "./use-t";
+import Link from "next/link";
+import { MapPin, Phone, Instagram } from "lucide-react";
+import { t } from "@/lib/content";
 import { Monogram, Branch } from "./decorations";
 
+const quickLinks = [
+  { href: "/leistungen", label: "Behandlungen" },
+  { href: "/ueber-uns", label: "Über uns" },
+  { href: "/galerie", label: "Galerie" },
+  { href: "/kontakt", label: "Kontakt" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/buchung", label: "Termin buchen" },
+];
+
 export function Footer() {
-  const { t, lang } = useT();
   const f = t.footer;
-
-  const go = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-
   const year = new Date().getFullYear();
 
   return (
@@ -28,7 +32,7 @@ export function Footer() {
                   ZAINARA
                 </div>
                 <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.45em] text-cream/60">
-                  {lang === "ar" ? "زينارة للتجميل" : "Cosmetics"}
+                  Cosmetics
                 </div>
               </div>
             </div>
@@ -43,14 +47,14 @@ export function Footer() {
               {f.quick}
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {(["about", "services", "gallery", "location", "booking", "faq"] as const).map((id) => (
-                <li key={id}>
-                  <button
-                    onClick={() => go(id)}
+              {quickLinks.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
                     className="text-cream/75 transition hover:text-gold-light"
                   >
-                    {t.nav[id as keyof typeof t.nav]}
-                  </button>
+                    {l.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -80,7 +84,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-cream/75 transition hover:text-gold-light"
                 >
-                  {lang === "ar" ? "زينارة للتجميل" : "@zainara-cosmetic"}
+                  @zainara-cosmetic
                 </a>
               </li>
             </ul>
@@ -101,14 +105,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-cream/15 pt-6 text-center sm:flex-row sm:text-left rtl:text-right">
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-cream/15 pt-6 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-cream/55">
             © {year} Zainara Cosmetics. {f.rights}
           </p>
           <div className="flex items-center gap-4 text-xs text-cream/55">
-            <span className="hover:text-gold-light cursor-pointer transition">{f.imprint}</span>
+            <Link href="/impressum" className="cursor-pointer transition hover:text-gold-light">
+              {f.imprint}
+            </Link>
             <span className="text-cream/30">·</span>
-            <span className="hover:text-gold-light cursor-pointer transition">{f.privacy}</span>
+            <Link href="/datenschutz" className="cursor-pointer transition hover:text-gold-light">
+              {f.privacy}
+            </Link>
           </div>
         </div>
       </div>
