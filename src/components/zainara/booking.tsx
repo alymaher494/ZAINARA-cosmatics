@@ -34,27 +34,33 @@ export function Booking() {
     c.items.map((it) => `${c.title} — ${it.name} (${it.price})`)
   );
 
-  async function onSubmit(e: React.FormEvent) {
+  function buildWaHref() {
+    const text = encodeURIComponent(
+      `${b.title}\n\n` +
+        `${b.name}: ${name || "-"}\n` +
+        `${b.phone}: ${phone || "-"}\n` +
+        (email ? `${b.email}: ${email}\n` : "") +
+        `${b.service}: ${service || "-"}\n` +
+        `${b.date}: ${date || "-"}\n` +
+        `${b.time}: ${time || "-"}\n` +
+        (message ? `${b.message}: ${message}` : "")
+    );
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  }
+
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name || !phone || !service) return;
-    setState("loading");
-    try {
-      const res = await fetch("/api/booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, service, date, time, message }),
-      });
-      if (!res.ok) throw new Error("request failed");
-      setState("success");
-    } catch {
-      setState("error");
-    }
+    // WhatsApp-only booking: no database, open chat with prefilled details
+    window.open(buildWaHref(), "_blank", "noopener,noreferrer");
+    setState("success");
   }
 
   const waText = encodeURIComponent(
     `${b.title}\n\n` +
       `${b.name}: ${name || "-"}\n` +
       `${b.phone}: ${phone || "-"}\n` +
+      (email ? `${b.email}: ${email}\n` : "") +
       `${b.service}: ${service || "-"}\n` +
       `${b.date}: ${date || "-"}\n` +
       `${b.time}: ${time || "-"}\n` +
