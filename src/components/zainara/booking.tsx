@@ -2,11 +2,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Calendar, Loader2, Send, MessageCircle, CheckCircle2 } from "lucide-react";
+import { Calendar, Loader2, Send, MessageCircle, CheckCircle2, Mail } from "lucide-react";
 import { t, services } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
+import emailjs from "@emailjs/browser";
 
 const WHATSAPP_NUMBER = "4915773435692";
+
+// EmailJS Config - ستحتاج لاستبدال هذه القيم بقيمك الحقيقية من EmailJS Dashboard
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
 export function Booking() {
   const b = t.booking;
@@ -24,7 +30,6 @@ export function Booking() {
   useEffect(() => {
     const q = searchParams.get("service");
     if (q) {
-      // try to match the category name to a full service option
       const match = allServices.find((s) => s.toLowerCase().startsWith(q.toLowerCase()));
       setService(match ?? q);
     }
@@ -48,12 +53,49 @@ export function Booking() {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function sendEmail(formData: {
+    name: string;
+    phone: string;
+    email: string;
+    service: string;
+    date: string;
+    time: string;
+    message: string;
+  }) {
+    const templateParams = {
+      to_email: "info@zainara-cosmetics.de", // الإيميل المستلم
+      from_name: formData.name,
+      from_phone: formData.phone,
+      from_email: formData.email || "غير محدد",
+      service: formData.service,
+      date: formData.date || "غير محدد",
+      time: formData.time || "غير محدد",
+      message: formData.message || "لا يوجد",
+      submitted_at: new Date().toLocaleString("de-DE"),
+    };
+
+    return emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      templateParams,
+      EMAILJS_PUBLIC_KEY
+    );
+  }
+
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name || !phone || !service) return;
-    // WhatsApp-only booking: no database, open chat with prefilled details
-    window.open(buildWaHref(), "_blank", "noopener,noreferrer");
-    setState("success");
+    
+    setState("loading");
+    
+    try {
+      // إرسال الإيميل عبر EmailJS
+      await sendEmail({ name, phone, email, service, date, time, message });
+      setState("success");
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setState("error");
+    }
   }
 
   const waText = encodeURIComponent(
@@ -101,6 +143,7 @@ export function Booking() {
             <div className="flex flex-col items-center py-12 text-center">
               <CheckCircle2 className="h-16 w-16 text-gold" />
               <p className="mt-4 max-w-md text-lg font-medium text-charcoal">{b.success}</p>
+              <p className="mt-2 text-sm text-charcoal/60">تم إرسال طلبك عبر الإيميل. سنتواصل معك خلال 24 ساعة.</p>
               <button
                 onClick={() => {
                   setState("idle");
@@ -196,7 +239,7 @@ export function Booking() {
 
               {state === "error" && (
                 <p className="sm:col-span-2 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
-                  {b.error}
+                  حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى أو التواصل عبر WhatsApp.
                 </p>
               )}
 
