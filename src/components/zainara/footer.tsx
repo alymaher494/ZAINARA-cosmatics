@@ -28,7 +28,7 @@ export function Footer() {
             <img
               src="/images/zainara_cosmetics_logo-removebg-preview.png"
               alt="Zainara Cosmetics Logo"
-              className="h-14 w-auto"
+              className="h-20 w-auto"
             />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-cream/70">
               {f.tagline}

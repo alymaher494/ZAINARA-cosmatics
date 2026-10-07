@@ -45,7 +45,7 @@ export function Header() {
           <img
             src="/images/zainara_cosmetics_logo-removebg-preview.png"
             alt="Zainara Cosmetics Logo"
-            className="h-12 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
 
