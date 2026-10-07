@@ -4,12 +4,10 @@ import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
 const certificates = [
-  { id: 1, title: "Staatlich geprüfte Kosmetikerin", image: "/images/cert-1.jpg" },
-  { id: 2, title: "NiSV zertifiziert", image: "/images/cert-2.jpg" },
-  { id: 3, title: "Dr. Schrammek zertifiziert (GREEN PEEL)", image: "/images/cert-3.jpg" },
-  { id: 4, title: "Hygiene- & Infektionsschutz", image: "/images/cert-4.jpg" },
-  { id: 5, title: "Laser-Schutzbeauftragte", image: "/images/cert-5.jpg" },
-  { id: 6, title: "Permanent Make-up Meisterin", image: "/images/cert-6.jpg" },
+  { id: 1, title: "Staatlich geprüfte Kosmetikerin", image: "/cert/Framed Kosmetik Training Certificate.png" },
+  { id: 2, title: "NiSV zertifiziert", image: "/cert/NiSV Academy Certification Wall.png" },
+  { id: 3, title: "Dr. Schrammek zertifiziert (GREEN PEEL)", image: "/cert/Framed Green Peel Certification Certificate.png" },
+  { id: 4, title: "Laser-Schutz & ZDH-ZERT NiSV", image: "/cert/Framed ZDH-ZERT NISV Certificate.png" },
 ];
 
 export function About() {
