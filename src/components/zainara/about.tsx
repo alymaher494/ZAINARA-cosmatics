@@ -3,6 +3,15 @@ import { Check, ChevronRight } from "lucide-react";
 import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
+const certificates = [
+  { id: 1, title: "Staatlich geprüfte Kosmetikerin", image: "/images/cert-1.jpg" },
+  { id: 2, title: "NiSV zertifiziert", image: "/images/cert-2.jpg" },
+  { id: 3, title: "Dr. Schrammek zertifiziert (GREEN PEEL)", image: "/images/cert-3.jpg" },
+  { id: 4, title: "Hygiene- & Infektionsschutz", image: "/images/cert-4.jpg" },
+  { id: 5, title: "Laser-Schutzbeauftragte", image: "/images/cert-5.jpg" },
+  { id: 6, title: "Permanent Make-up Meisterin", image: "/images/cert-6.jpg" },
+];
+
 export function About() {
   const a = t.about;
 
@@ -65,6 +74,44 @@ export function About() {
                 </li>
               ))}
             </ul>
+
+            {/* Certificates Section */}
+            <div className="mt-10">
+              <GoldDivider className="mx-auto" />
+              <div className="mt-8 text-center">
+                <SectionLabel>Qualifikationen & Zertifikate</SectionLabel>
+                <h3 className="mt-2 font-serif text-2xl font-bold text-charcoal">
+                  Ihre Sicherheit – unsere Qualifikation
+                </h3>
+                <p className="mt-2 max-w-xl mx-auto text-sm text-charcoal/60">
+                  Alle Zertifikate sind aktuell und im Studio einsehbar.
+                </p>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {certificates.map((cert) => (
+                  <article
+                    key={cert.id}
+                    className="group relative overflow-hidden rounded-xl border border-gold/20 bg-cream/50 p-4 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10"
+                  >
+                    <div className="aspect-square overflow-hidden rounded-lg bg-charcoal/5">
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        width={400}
+                        height={400}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="mt-3 text-center">
+                      <p className="text-sm font-medium text-charcoal">{cert.title}</p>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </article>
+                ))}
+              </div>
+            </div>
 
             <Link
               href="/leistungen"

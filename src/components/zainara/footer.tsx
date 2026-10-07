@@ -25,21 +25,11 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div className="md:col-span-1">
-            <div className="flex items-center gap-3">
-              <img
-                src="/images/zainara cosmetics logo.webp"
-                alt="Zainara Cosmetics Logo"
-                className="h-12 w-auto"
-              />
-              <div className="leading-none">
-                <div className="font-serif text-xl font-bold tracking-[0.18em] text-gold-light">
-                  ZAINARA
-                </div>
-                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.45em] text-cream/60">
-                  Cosmetics
-                </div>
-              </div>
-            </div>
+            <img
+              src="/images/zainara_cosmetics_logo-removebg-preview.png"
+              alt="Zainara Cosmetics Logo"
+              className="h-14 w-auto"
+            />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-cream/70">
               {f.tagline}
             </p>

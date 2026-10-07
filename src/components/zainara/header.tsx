@@ -43,18 +43,10 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" aria-label="Zainara Cosmetics Startseite">
           <img
-            src="/images/zainara cosmetics logo.webp"
+            src="/images/zainara_cosmetics_logo-removebg-preview.png"
             alt="Zainara Cosmetics Logo"
-            className="h-10 w-auto"
+            className="h-12 w-auto"
           />
-          <span className="flex flex-col leading-none">
-            <span className="font-serif text-lg font-bold tracking-[0.18em] text-gold-gradient">
-              ZAINARA
-            </span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.45em] text-charcoal/70">
-              Cosmetics
-            </span>
-          </span>
         </Link>
 
         {/* Desktop nav */}
