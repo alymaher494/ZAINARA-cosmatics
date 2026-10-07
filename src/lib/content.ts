@@ -157,7 +157,10 @@ export const t = {
     founderName: "Zainara",
     founderRole: "Gründerin & Beauty-Expertin",
     points: [
-      "Zertifizierte Laser- & Permanent Make-up-Spezialistin",
+      "7 Jahre Erfahrung",
+      "Staatlich geprüfte Kosmetikerin",
+      "NiSV zertifiziert",
+      "Dr. Schrammek zertifiziert (GREEN PEEL)",
       "Modernste Geräte & klinische Hygiene",
       "Persönliche Beratung in einem ruhigen Wohlfühl-Studio",
     ],

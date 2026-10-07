@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Instagram } from "lucide-react";
 import { t } from "@/lib/content";
-import { Monogram, Branch } from "./decorations";
+import { Branch } from "./decorations";
 
 const quickLinks = [
   { href: "/leistungen", label: "Behandlungen" },
@@ -26,7 +26,11 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3">
-              <Monogram className="h-12 w-12" />
+              <img
+                src="/images/zainara cosmetics logo.webp"
+                alt="Zainara Cosmetics Logo"
+                className="h-12 w-auto"
+              />
               <div className="leading-none">
                 <div className="font-serif text-xl font-bold tracking-[0.18em] text-gold-light">
                   ZAINARA

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Calendar } from "lucide-react";
 import { t } from "@/lib/content";
-import { Monogram } from "./decorations";
 
 const links = [
   { href: "/leistungen", key: "services" as const },
@@ -43,7 +42,11 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" aria-label="Zainara Cosmetics Startseite">
-          <Monogram className="h-10 w-10" />
+          <img
+            src="/images/zainara cosmetics logo.webp"
+            alt="Zainara Cosmetics Logo"
+            className="h-10 w-auto"
+          />
           <span className="flex flex-col leading-none">
             <span className="font-serif text-lg font-bold tracking-[0.18em] text-gold-gradient">
               ZAINARA
