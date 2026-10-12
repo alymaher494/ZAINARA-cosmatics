@@ -3,6 +3,8 @@ import type { MetadataRoute } from "next";
 const SITE_URL = "https://zainara-cosmetics.de";
 const LASTMOD = new Date();
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; priority: number }[] = [
     { path: "", priority: 1.0 },
