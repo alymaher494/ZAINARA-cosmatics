@@ -25,7 +25,7 @@ export default function UeberUnsPage() {
           </div>
         </div>
       </section>
-      <About />
+      <About hideHeader />
       <CTABand />
       <div className="bg-cream-texture py-12 text-center">
         <Link

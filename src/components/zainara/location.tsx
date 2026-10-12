@@ -2,7 +2,7 @@ import { MapPin, Phone, Instagram, Clock, Navigation } from "lucide-react";
 import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
-export function Location() {
+export function Location({ hideHeader = false }: { hideHeader?: boolean }) {
   const l = t.location;
 
   const mapSrc =
@@ -18,18 +18,20 @@ export function Location() {
       <Branch className="pointer-events-none absolute top-8 right-0 h-40 w-40 opacity-20" flip />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel>{l.label}</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-            {l.title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
-            {l.subtitle}
-          </p>
-          <div className="mt-6">
-            <GoldDivider />
+        {!hideHeader && (
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>{l.label}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+              {l.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
+              {l.subtitle}
+            </p>
+            <div className="mt-6">
+              <GoldDivider />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Map */}

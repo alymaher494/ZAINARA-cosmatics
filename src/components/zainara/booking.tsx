@@ -14,7 +14,7 @@ const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_S
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
-export function Booking() {
+export function Booking({ hideHeader = false }: { hideHeader?: boolean }) {
   const b = t.booking;
   const searchParams = useSearchParams();
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -125,18 +125,20 @@ export function Booking() {
       <Branch className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 opacity-30" flip />
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel>{b.label}</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-            {b.title}
-          </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-charcoal/70">
-            {b.subtitle}
-          </p>
-          <div className="mt-6">
-            <GoldDivider />
+        {!hideHeader && (
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>{b.label}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+              {b.title}
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-charcoal/70">
+              {b.subtitle}
+            </p>
+            <div className="mt-6">
+              <GoldDivider />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-10 overflow-hidden rounded-[2rem] border border-gold/30 bg-cream/95 p-6 shadow-2xl shadow-charcoal/10 backdrop-blur sm:p-8">
           {state === "success" ? (

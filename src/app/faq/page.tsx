@@ -23,7 +23,7 @@ export default function FAQPage() {
           </div>
         </div>
       </section>
-      <FAQ />
+      <FAQ hideHeader />
       <CTABand />
     </>
   );

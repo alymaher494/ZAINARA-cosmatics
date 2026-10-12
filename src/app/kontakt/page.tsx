@@ -26,7 +26,7 @@ export default function KontaktPage() {
           </div>
         </div>
       </section>
-      <Location />
+      <Location hideHeader />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
-export function Gallery() {
+export function Gallery({ hideHeader = false }: { hideHeader?: boolean }) {
   const g = t.gallery;
 
   const imgs = ["/images/gallery-1.jpg", "/images/gallery-2.jpg", "/images/gallery-3.jpg"];
@@ -11,18 +11,20 @@ export function Gallery() {
       <Branch className="pointer-events-none absolute bottom-0 left-0 h-44 w-44 opacity-20" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel>{g.label}</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-            {g.title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
-            {g.subtitle}
-          </p>
-          <div className="mt-6">
-            <GoldDivider />
+        {!hideHeader && (
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>{g.label}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+              {g.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
+              {g.subtitle}
+            </p>
+            <div className="mt-6">
+              <GoldDivider />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {g.items.map((item, i) => (

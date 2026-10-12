@@ -47,7 +47,7 @@ function priceRange(cat: (typeof services)[number]): string {
   return `${min}–${max} €`;
 }
 
-export function Services() {
+export function Services({ hideHeader = false }: { hideHeader?: boolean }) {
   const s = t.services;
   const [active, setActive] = useState<(typeof services)[number] | null>(null);
   const [open, setOpen] = useState(false);
@@ -71,18 +71,20 @@ export function Services() {
       <Branch className="pointer-events-none absolute bottom-0 -left-10 h-40 w-40 opacity-20" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel>{s.label}</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-            {s.title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
-            {s.subtitle}
-          </p>
-          <div className="mt-6">
-            <GoldDivider />
+        {!hideHeader && (
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>{s.label}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+              {s.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal/70">
+              {s.subtitle}
+            </p>
+            <div className="mt-6">
+              <GoldDivider />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Grid of all categories (Bootstrap-style responsive grid) */}
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

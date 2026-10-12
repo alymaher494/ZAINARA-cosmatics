@@ -28,7 +28,7 @@ export default function BuchungPage() {
         </div>
       </section>
       <Suspense fallback={<div className="py-20 text-center text-charcoal/50">Lade Formular…</div>}>
-        <Booking />
+        <Booking hideHeader />
       </Suspense>
     </>
   );

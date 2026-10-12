@@ -30,7 +30,7 @@ export default function LeistungenPage() {
           </div>
         </div>
       </section>
-      <Services />
+      <Services hideHeader />
       <CTABand />
       <Branch className="pointer-events-none fixed bottom-2 left-2 h-12 w-12 opacity-10" />
     </>

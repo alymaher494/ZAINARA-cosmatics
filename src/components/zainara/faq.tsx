@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { t } from "@/lib/content";
 import { Branch, GoldDivider, SectionLabel } from "./decorations";
 
-export function FAQ() {
+export function FAQ({ hideHeader = false }: { hideHeader?: boolean }) {
   const f = t.faq;
   const [open, setOpen] = useState<number | null>(0);
 
@@ -13,15 +13,17 @@ export function FAQ() {
       <Branch className="pointer-events-none absolute top-6 right-0 h-40 w-40 opacity-20" flip />
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel>{f.label}</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-            {f.title}
-          </h2>
-          <div className="mt-6">
-            <GoldDivider />
+        {!hideHeader && (
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>{f.label}</SectionLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+              {f.title}
+            </h2>
+            <div className="mt-6">
+              <GoldDivider />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-10 space-y-3">
           {f.items.map((item, i) => {

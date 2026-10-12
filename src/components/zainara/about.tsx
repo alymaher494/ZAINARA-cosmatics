@@ -10,7 +10,7 @@ const certificates = [
   { id: 4, title: "Laser-Schutz & ZDH-ZERT NiSV", image: "/cert/Framed ZDH-ZERT NISV Certificate.png" },
 ];
 
-export function About() {
+export function About({ hideHeader = false }: { hideHeader?: boolean }) {
   const a = t.about;
 
   return (
@@ -46,15 +46,17 @@ export function About() {
 
           {/* Text side */}
           <div className="order-1 lg:order-2">
-            <div className="flex flex-col items-center lg:items-start">
-              <SectionLabel>{a.label}</SectionLabel>
-              <h2 className="mt-4 max-w-xl text-center font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-left">
-                {a.title}
-              </h2>
-              <div className="mt-5 hidden lg:block">
-                <GoldDivider />
+            {!hideHeader && (
+              <div className="flex flex-col items-center lg:items-start">
+                <SectionLabel>{a.label}</SectionLabel>
+                <h2 className="mt-4 max-w-xl text-center font-serif text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-left">
+                  {a.title}
+                </h2>
+                <div className="mt-5 hidden lg:block">
+                  <GoldDivider />
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="mt-6 space-y-4 text-base leading-relaxed text-charcoal/80">
               {a.paragraphs.map((p, i) => (

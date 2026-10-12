@@ -27,7 +27,7 @@ export default function GaleriePage() {
           </div>
         </div>
       </section>
-      <Gallery />
+      <Gallery hideHeader />
       <CTABand />
     </>
   );
