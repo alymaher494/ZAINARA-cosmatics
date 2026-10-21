@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://zainara-cosmetics.de";
+const SITE_URL = "https://zainara-cosmetic.de";
 const LASTMOD = new Date();
 
 export const dynamic = "force-static";

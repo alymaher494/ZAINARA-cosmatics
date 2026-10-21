@@ -7,7 +7,7 @@ export function BreadcrumbJsonLd({
 }: {
   items: { name: string; path: string }[];
 }) {
-  const SITE_URL = "https://zainara-cosmetics.de";
+  const SITE_URL = "https://zainara-cosmetic.de";
   const json = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
